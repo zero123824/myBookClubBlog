@@ -1,12 +1,12 @@
 module.exports = {
   pathPrefix: "/myBookClubBlog",
   siteMetadata: {
-    title: `Gatsby Starter Blog`,
-    author: `Kyle Mathews`,
-    description: `A starter blog demonstrating what Gatsby can do.`,
+    title: `程式讀書會文章分享部落格 Gatsby Starter Blog`,
+    author: `Jaime Chang`,
+    description: `心得、技術分享文章 A starter blog demonstrating what Gatsby can do.`,
     siteUrl: `https://gatsby-starter-blog-demo.netlify.com/`,
     social: {
-      twitter: `kylemathews`,
+      github: `zero123824`,
     },
   },
   plugins: [

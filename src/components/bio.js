@@ -17,7 +17,7 @@ const Bio = () => {
       avatar: file(absolutePath: { regex: "/profile-pic.jpg/" }) {
         childImageSharp {
           fixed(width: 50, height: 50) {
-            ...GatsbyImageSharpFixed
+            ...GatsbyImageSharpFixed_noBase64
           }
         }
       }
@@ -25,7 +25,7 @@ const Bio = () => {
         siteMetadata {
           author
           social {
-            twitter
+            github
           }
         }
       }
@@ -54,11 +54,10 @@ const Bio = () => {
         }}
       />
       <p>
-        Written by <strong>{author}</strong> who lives and works in San
-        Francisco building useful things.
+        Written by <strong>{author}</strong> .
         {` `}
-        <a href={`https://twitter.com/${social.twitter}`}>
-          You should follow him on Twitter
+        <a href={`https://github.com/${social.github}`}>
+          You should follow him on Github.
         </a>
       </p>
     </div>
