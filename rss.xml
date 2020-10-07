@@ -1,4 +1,35 @@
-<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[程式讀書會文章分享部落格 Gatsby Starter Blog]]></title><description><![CDATA[心得、技術分享文章 A starter blog demonstrating what Gatsby can do.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Tue, 29 Sep 2020 06:24:31 GMT</lastBuildDate><item><title><![CDATA[我的Gatsby還需要解決的問題(TODO)]]></title><description><![CDATA[MARKDOWN語法: https://markdown.tw/ 1. 程式碼區塊顯示不完整、不好看 如下面這個案例，區塊裡的文字太長超過了頁面。 2. 應該自動生成header 當建立一個md檔後，可以有快捷鍵自動產生現在時間日期，不用再手動輸入。 3. jekyll…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/Gatsby/Gatby-todo/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/Gatsby/Gatby-todo/</guid><pubDate>Tue, 29 Sep 2020 14:07:03 GMT</pubDate><content:encoded>&lt;p&gt;MARKDOWN語法: &lt;a href=&quot;https://markdown.tw/&quot;&gt;https://markdown.tw/&lt;/a&gt;&lt;/p&gt;
+<?xml version="1.0" encoding="UTF-8"?><rss xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:atom="http://www.w3.org/2005/Atom" version="2.0"><channel><title><![CDATA[程式讀書會文章分享部落格 Gatsby Starter Blog]]></title><description><![CDATA[心得、技術分享文章 A starter blog demonstrating what Gatsby can do.]]></description><link>https://gatsby-starter-blog-demo.netlify.com</link><generator>GatsbyJS</generator><lastBuildDate>Wed, 07 Oct 2020 02:57:03 GMT</lastBuildDate><item><title><![CDATA[Spring專案拆分多模組簡介]]></title><description><![CDATA[一、intellij新增專案 使用intellij新建一個spring boot專案，如一般設定。
+完成後可以先值節application的main方法，確認新建成功。 二、新增模組 在專案下右鍵有個New -> Module，裡面可以決定module的名稱，finish…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/java-backend/SpringMultiModules/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/java-backend/SpringMultiModules/</guid><pubDate>Wed, 30 Sep 2020 11:50:03 GMT</pubDate><content:encoded>&lt;h3&gt;一、intellij新增專案&lt;/h3&gt;
+&lt;p&gt;使用intellij新建一個spring boot專案，如一般設定。
+完成後可以先值節application的main方法，確認新建成功。&lt;/p&gt;
+&lt;h3&gt;二、新增模組&lt;/h3&gt;
+&lt;p&gt;在專案下右鍵有個New -&gt; Module，裡面可以決定module的名稱，finish後，child module會掛在parent module底下。&lt;/p&gt;
+&lt;h3&gt;三、搬移parent模組的內容&lt;/h3&gt;
+&lt;p&gt;在parent這層是沒有src之類的java file，只有pom file定義了個模組間的關係。
+而要將Package中自動產生的名稱改為與parent一樣，因為web的應用程式類別的@SpringBootApplication的scanBasePacages屬性會設定為”parent的package name的package name”，spring boot會按照這個設定掃描物件為bean。&lt;/p&gt;
+&lt;h3&gt;四、檢視module pom.xml檔&lt;/h3&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;    &amp;lt;modules&amp;gt;
+        &amp;lt;module&amp;gt;entity&amp;lt;/module&amp;gt;
+    &amp;lt;/modules&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;parent module的pom檔案裡面會新增modules的tag，裡面有相依的child module
+而在child module的pom.xml裡&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;    &amp;lt;parent&amp;gt;
+        &amp;lt;artifactId&amp;gt;multimodule&amp;lt;/artifactId&amp;gt;
+        &amp;lt;groupId&amp;gt;idv.jaime&amp;lt;/groupId&amp;gt;
+        &amp;lt;version&amp;gt;0.0.1-SNAPSHOT&amp;lt;/version&amp;gt;
+    &amp;lt;/parent&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;有parent module的資訊&lt;/p&gt;
+&lt;h3&gt;五、設定repository的resouce&lt;/h3&gt;
+&lt;p&gt;當想要把與資料庫相關的orm，包括repository和domain vo拆開時，再次啟動applcation會發現找不到datasource的url設定，而明明已經在主要專案的application.properties中設定。
+這是因為沒有正確讀取到配置文件，需要在parent modules的pom檔中設定:&lt;/p&gt;
+&lt;div class=&quot;gatsby-highlight&quot; data-language=&quot;text&quot;&gt;&lt;pre class=&quot;language-text&quot;&gt;&lt;code class=&quot;language-text&quot;&gt;&amp;lt;build&amp;gt;
+  &amp;lt;resouces&amp;gt;
+    &amp;lt;directory&amp;gt;
+  
+    &amp;lt;/directory&amp;gt;
+  &amp;lt;/resouces&amp;gt;
+&amp;lt;/build&amp;gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+&lt;p&gt;這樣的配置&lt;/p&gt;</content:encoded></item><item><title><![CDATA[我的Gatsby還需要解決的問題(TODO)]]></title><description><![CDATA[MARKDOWN語法: https://markdown.tw/ 1. 程式碼區塊顯示不完整、不好看 如下面這個案例，區塊裡的文字太長超過了頁面。 2. 應該自動生成header 當建立一個md檔後，可以有快捷鍵自動產生現在時間日期，不用再手動輸入。 3. jekyll…]]></description><link>https://gatsby-starter-blog-demo.netlify.com/Gatsby/Gatby-todo/</link><guid isPermaLink="false">https://gatsby-starter-blog-demo.netlify.com/Gatsby/Gatby-todo/</guid><pubDate>Tue, 29 Sep 2020 14:07:03 GMT</pubDate><content:encoded>&lt;p&gt;MARKDOWN語法: &lt;a href=&quot;https://markdown.tw/&quot;&gt;https://markdown.tw/&lt;/a&gt;&lt;/p&gt;
 &lt;h3&gt;1. 程式碼區塊顯示不完整、不好看&lt;/h3&gt;
 &lt;p&gt;如下面這個案例，區塊裡的文字太長超過了頁面。&lt;/p&gt;
 &lt;span class=&quot;gatsby-resp-image-wrapper&quot; style=&quot;position: relative; display: block; margin-left: auto; margin-right: auto;  max-width: 590px;&quot;&gt;
